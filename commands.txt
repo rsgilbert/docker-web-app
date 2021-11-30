@@ -1,0 +1,52 @@
+// See: https://nodejs.org/en/docs/guides/nodejs-docker-webapp/
+
+// Build docker image 
+docker build . -t rsgilbert/docker-web-app
+
+// List docker images 
+docker images 
+
+// Run docker image
+// -d runs the container in detached mode 
+// -p redirects a public port to a private port inside the container 
+docker run -p 49160:8080 -d rsgilbert/docker-web-app 
+
+// You can also run an image using its image id but make sure you get the right image id using command: docker images
+docker run -dp 41960:8080 de10ffe8371e
+
+// Get container id 
+docker ps 
+
+// print app output 
+docker logs <container id> 
+
+// Go inside the container 
+docker exec -it <container id> /bin/bash 
+docker exec  --tty --interactive 451774bef7be /bin/bash 
+
+// Stop and remove container
+docker rm -f <container id> 
+
+// You can also remove multiple containers 
+docker rm -f 106695fa672b de6c7042b212
+
+// List containers 
+docker container ls 
+
+// List volumes 
+docker volume ls 
+
+// Create volume 
+docker volume create app-logs.txt 
+
+// inspect volume 
+docker volume inspect app-logs.txt 
+
+// Run docker image specifying a volume mount. 
+// We use a named volume and mount it to /etc/my-logs 
+// If the volume doesn't exist it will be created.
+docker run -dp 41960:8080 -v my-logs:/etc/my-logs rsgilbert/docker-web-app 
+
+
+
+
